@@ -1,0 +1,22 @@
+name: 'Crowdin Sync'
+
+on:
+  workflow_dispatch:
+  schedule:
+    # GitHub expects this to be UTC time.
+    # This schedule equates to: 9am EST every weekday
+    - cron: '0 14 * * 1-5'
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 12
+      - name: Sync with Crowdin
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo tmp
